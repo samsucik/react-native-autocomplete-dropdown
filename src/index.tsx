@@ -149,6 +149,10 @@ export const AutocompleteDropdown = memo<
       inputRef.current?.blur()
     }, [])
 
+    const focus = useCallback(() => {
+      inputRef.current?.focus()
+    }, [])
+
     // useEffect(() => {
     //   if (kbHeight && !direction) {
     //     calculateDirection()
@@ -237,7 +241,7 @@ export const AutocompleteDropdown = memo<
 
     /** expose controller methods */
     useEffect(() => {
-      const methods = activeControllerRef ? { close, blur, open, toggle, clear, setInputText, setItem } : null
+      const methods = activeControllerRef ? { close, blur, focus, open, toggle, clear, setInputText, setItem } : null
       if (activeControllerRef) {
         activeControllerRef.current = methods
       }
@@ -246,7 +250,7 @@ export const AutocompleteDropdown = memo<
       } else if (controller) {
         controller.current = methods
       }
-    }, [blur, clear, close, controller, activeControllerRef, open, setInputText, setItem, toggle])
+    }, [blur, focus, clear, close, controller, activeControllerRef, open, setInputText, setItem, toggle])
 
     useEffect(() => {
       if (selectedItem) {
