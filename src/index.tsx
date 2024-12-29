@@ -563,5 +563,6 @@ const getStyles = (themeName: 'light' | 'dark' = 'light') =>
     pressable: {
       flexGrow: 1,
       flexShrink: 1,
+      width: '100%',
     },
   })
