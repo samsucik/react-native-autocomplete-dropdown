@@ -16,6 +16,7 @@ export interface IAutocompleteDropdownContext {
 
 export interface IAutocompleteDropdownContextProviderProps {
   headerOffset?: number
+  dropdownTopMargin?: number
   children: React.ReactNode
 }
 
@@ -31,6 +32,7 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
 
 export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContextProviderProps> = ({
   headerOffset = 0,
+  dropdownTopMargin,
   children,
 }) => {
   const [content, setContent] = useState<IAutocompleteDropdownContext['content']>()
@@ -42,7 +44,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
   >()
   const [opacity, setOpacity] = useState(0)
   const [contentStyles, setContentStyles] = useState<
-    { top?: number; left: number; width?: number; bottom?: number } | undefined
+    { top?: number; left: number; width?: number; bottom?: number, maxHeight?: number } | undefined
   >(undefined)
   const activeInputContainerRef = useRef<View>(null)
   const wrapperRef = useRef<View>(null)
@@ -62,6 +64,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
         top: undefined,
         left: inputMeasurements.x,
         width: inputMeasurements.width,
+        maxHeight: inputMeasurements.topY - headerOffset - (dropdownTopMargin ?? 0)
       })
       setOpacity(1)
     } else if (direction === 'down') {
@@ -152,6 +155,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
             ...styles.wrapper,
             opacity,
             ...contentStyles,
+            flexDirection: direction == 'up' ? 'column-reverse' : 'column'
           }}>
           {content}
         </View>

@@ -61,6 +61,7 @@ const getStyles = (themeName: 'light' | 'dark' = 'light') =>
     listContainer: {
       backgroundColor: theme[themeName].suggestionsListBackgroundColor,
       width: '100%',
+      maxHeight: '100%',
       zIndex: 9,
       borderRadius: 5,
       shadowColor: theme[themeName || 'light'].shadowColor,
